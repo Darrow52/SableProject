@@ -1,0 +1,539 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sable</title>
+  <!-- Меняем класс no-js на js как можно раньше, ещё до отрисовки страницы.
+       Анимации появления прячут элементы только при классе .js — если JS
+       не загрузится, весь контент останется видимым -->
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/second.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<!-- Первый экран: фон с картами, шапка, заголовок. Высота фиксирована,
+     всё лишнее (низ карты) обрезается по его краю -->
+<div class="first-screen">
+<section class="hero">
+  <img
+    class="hero__background"
+    src="./img/background.svg?v=9"
+    alt=""
+    aria-hidden="true"
+    data-reveal="fade"
+  >
+</section>
+<header class="header">
+
+  <a href="/" class="header-logo">
+    <img
+      src="img/Group.svg"
+      alt="Sable logo"
+    class="header-logo-image">
+  </a>
+  <nav class="header-menu" id="header-menu">
+    <ul class="header-menu-list">
+      <li class="header-menu-item">
+        <a class="header-menu-link" href="/">Credit</a>
+      </li>
+      <li class="header-menu-item">
+        <a class="header-menu-link" href="/">Debit</a>
+      </li>
+      <li class="header-menu-item">
+        <a class="header-menu-link" href="/">App</a>
+      </li>
+      <li class="header-menu-item">
+        <a class="header-menu-link" href="/">Learn</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header-action">
+    <button class="header-book-button" type="button" >
+      Apply Now
+    </button>
+  </div>
+
+  <!-- Кнопка-бургер видна только на мобильном. aria-expanded говорит
+       скринридеру, открыто ли меню, aria-controls — какое меню она открывает
+       (id="header-menu"). Значения меняет js/app.js -->
+  <button
+    class="header-burger"
+    type="button"
+    aria-expanded="false"
+    aria-controls="header-menu"
+    aria-label="Open menu"
+  >
+    <span class="header-burger__line"></span>
+  </button>
+</header>
+  <main class="content">
+    <h1 class="visually-hidden">Sable Accounting</h1>
+    <section class="title" data-reveal-stagger>
+      <div class="title-text1" data-reveal>
+        The fastest, most <br/> premium path to
+      </div>
+      <div class="title-text2" data-reveal>
+        financial freedom
+      </div>
+      <div class="explore-button" data-reveal>
+        <button class="explore" type="button">
+          Explore
+        </button>
+      </div>
+    </section>
+  </main>
+  <!-- Строка FDIC в левом нижнем углу первого экрана (есть в макете Figma) -->
+  <p class="fdic" data-reveal="fade">
+    <img class="fdic__logo" src="img/fdic.svg" alt="FDIC" width="56" height="22">
+    Banking services provided by Coastal Community Bank, Member FDIC, pursuant to license by Mastercard International Inc.
+  </p>
+</div>
+
+<!-- Преимущества: заголовок, телефон и 4 карточки вокруг него -->
+<section class="features">
+  <header class="features-head" data-reveal>
+    <p class="features-eyebrow">
+      400,000 accounts &amp; counting
+    </p>
+    <h2 class="features__title">
+      <strong>No hidden fees. No credit checks.</strong>
+      No more barriers to building credit.
+    </h2>
+  </header>
+  <img
+    class="features__phone"
+    data-reveal="rise"
+    src="img/phone.svg"
+    alt="Sable app: credit card and bank account balances"
+    width="1239"
+    height="884"
+  >
+  <ul class="features__list" data-reveal-stagger>
+    <li class="feature" data-reveal>
+      <img class="feature__icon" src="img/icons/Vector.svg" alt="" width="33" height="26">
+      <h3 class="feature__title">Get a secured credit card and bank account in 5 minutes.</h3>
+      <p class="feature__text">No credit history, credit check, or minimum deposit required.</p>
+    </li>
+
+    <li class="feature" data-reveal>
+      <img class="feature__icon" src="img/icons/Frame (1).svg" alt="" width="39" height="39">
+      <h3 class="feature__title">The only premium card for building credit.</h3>
+      <p class="feature__text">2% unlimited cash back on your favorite brands, 2X first year cash back match, premium benefits and more!</p>
+    </li>
+
+    <li class="feature" data-reveal>
+      <img class="feature__icon" src="img/icons/Frame.svg" alt="" width="39" height="39">
+      <h3 class="feature__title">Build your U.S. credit</h3>
+      <p class="feature__text">We believe in forming positive habits. Build your U.S. credit with Sable</p>
+    </li>
+
+    <li class="feature" data-reveal>
+      <img class="feature__icon" src="img/icons/Frame (2).svg" alt="" width="39" height="39">
+      <h3 class="feature__title">Bank like a global citizen with Sable.</h3>
+      <p class="feature__text">Start building credit before you even enter the country. Non-U.S. citizens can apply with their passport and visa.</p>
+    </li>
+  </ul>
+</section>
+
+<!-- Логотипы прессы. У секции нет видимого заголовка, поэтому её название
+     для скринридера задано в aria-label -->
+<section class="press" aria-label="Sable in the press">
+  <div class="press__track" data-reveal="fade">
+    <ul class="press__list">
+      <li class="press__item"><img src="img/press/yahoo-finance.svg" alt="Yahoo Finance" width="124" height="46"></li>
+      <li class="press__item"><img src="img/press/bloomberg.svg" alt="Bloomberg" width="243" height="46"></li>
+      <li class="press__item"><img src="img/press/business-insider.svg" alt="Business Insider" width="146" height="46"></li>
+      <li class="press__item"><img src="img/press/forbes.svg" alt="Forbes" width="171" height="46"></li>
+    </ul>
+    <!-- Копии списка нужны только для бесконечной бегущей строки.
+         aria-hidden="true" прячет их от скринридера, чтобы логотипы
+         не зачитывались по три раза -->
+    <ul class="press__list" aria-hidden="true">
+      <li class="press__item"><img src="img/press/yahoo-finance.svg" alt="" width="124" height="46"></li>
+      <li class="press__item"><img src="img/press/bloomberg.svg" alt="" width="243" height="46"></li>
+      <li class="press__item"><img src="img/press/business-insider.svg" alt="" width="146" height="46"></li>
+      <li class="press__item"><img src="img/press/forbes.svg" alt="" width="171" height="46"></li>
+    </ul>
+    <ul class="press__list" aria-hidden="true">
+      <li class="press__item"><img src="img/press/yahoo-finance.svg" alt="" width="124" height="46"></li>
+      <li class="press__item"><img src="img/press/bloomberg.svg" alt="" width="243" height="46"></li>
+      <li class="press__item"><img src="img/press/business-insider.svg" alt="" width="146" height="46"></li>
+      <li class="press__item"><img src="img/press/forbes.svg" alt="" width="171" height="46"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Кредитная карта (в макете эта секция — только картинка) -->
+<section class="credit" aria-label="Sable secured credit card">
+  <img
+    class="credit__card"
+    data-reveal="from-right"
+    src="img/cards/credit-card.png"
+    alt="Sable secured credit card"
+    width="433"
+    height="533"
+  >
+</section>
+
+<!-- Дебетовая карта с заголовком на белом фоне -->
+<section class="debit">
+  <div class="debit__container">
+    <img
+      class="debit__card"
+      data-reveal="from-left"
+      src="img/cards/debit-card.png"
+      alt="Sable debit card"
+      width="433"
+      height="533"
+    >
+    <h2 class="debit__title" data-reveal>
+      Get a bank account &amp; debit card <span class="debit__accent">in five minutes.</span>
+    </h2>
+  </div>
+</section>
+
+<!-- Кэшбэк: слева три пункта, справа картинка к активному пункту.
+     Пункты переключаются сами по очереди (js/app.js), их можно выбрать и кликом -->
+<section class="cashback">
+  <ul class="cashback__list" data-reveal-stagger>
+    <li class="cashback__item cashback__item--active" data-reveal>
+      <h2 class="cashback__title">
+        <!-- Заголовок — кнопка: по клику пункт становится активным.
+             aria-pressed сообщает скринридеру, выбран ли пункт -->
+        <button class="cashback__trigger" type="button" aria-pressed="true">
+          Earn 2% cash back on favorite brands
+        </button>
+      </h2>
+      <p class="cashback__text">
+        Earn 2%<sup>1</sup> cash back on favorite brands, 1%<sup>1</sup> cashback on all purchases, and a 2x cashback match in your first year! Get premium benefits and much more.
+      </p>
+    </li>
+    <li class="cashback__item" data-reveal>
+      <h2 class="cashback__title">
+        <button class="cashback__trigger" type="button" aria-pressed="false">
+          Moving to the U.S.? No SSN required
+        </button>
+      </h2>
+      <p class="cashback__text">
+        Start building credit before you even enter the country. Sign up with your international address, passport &amp; visa instead**.
+      </p>
+    </li>
+    <li class="cashback__item" data-reveal>
+      <h2 class="cashback__title">
+        <button class="cashback__trigger" type="button" aria-pressed="false">
+          Get help from a real person
+        </button>
+      </h2>
+      <p class="cashback__text">
+        When you’ve got questions about your finances, get multilingual customer support anytime you need from direct in-app chat, email, phone, and our site FAQs.
+      </p>
+    </li>
+  </ul>
+
+  <!-- Три картинки лежат друг на друге, видна только активная.
+       Порядок картинок совпадает с порядком пунктов слева.
+       Картинки иллюстративные, поэтому alt пустой: смысл передаёт текст -->
+  <div class="cashback__visuals">
+    <!-- 1. Плитки брендов, колонки бесконечно едут вверх и вниз -->
+    <div class="cashback__visual cashback__visual--active brands" aria-hidden="false">
+      <div class="brands__column brands__column--left" data-reveal>
+        <ul class="brands__track">
+          <li class="brands__tile"><img src="img/brands/whole-foods.svg" alt="Whole Foods Market" width="129" height="129"></li>
+          <li class="brands__tile"><img src="img/brands/spotify.svg" alt="Spotify" width="130" height="130"></li>
+          <li class="brands__tile"><img src="img/brands/amazon.svg" alt="Amazon" width="126" height="130"></li>
+          <!-- Копия плиток для бесконечной прокрутки колонки -->
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/whole-foods.svg" alt="" width="129" height="129"></li>
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/spotify.svg" alt="" width="130" height="130"></li>
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/amazon.svg" alt="" width="126" height="130"></li>
+        </ul>
+      </div>
+      <div class="brands__column brands__column--right" data-reveal="down">
+        <ul class="brands__track">
+          <li class="brands__tile"><img src="img/brands/netflix.svg" alt="Netflix" width="68" height="128"></li>
+          <li class="brands__tile"><img src="img/brands/uber-eats.svg" alt="Uber Eats" width="130" height="101"></li>
+          <li class="brands__tile"><img src="img/brands/uber.svg" alt="Uber" width="129" height="43"></li>
+          <!-- Копия плиток для бесконечной прокрутки колонки -->
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/netflix.svg" alt="" width="68" height="128"></li>
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/uber-eats.svg" alt="" width="130" height="101"></li>
+          <li class="brands__tile" aria-hidden="true"><img src="img/brands/uber.svg" alt="" width="129" height="43"></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2. Две карты Sable веером -->
+    <div class="cashback__visual cashback__visual--cards" aria-hidden="true">
+      <img class="cashback__card cashback__card--debit" src="img/cards/debit-card.png" alt="" width="500" height="785">
+      <img class="cashback__card cashback__card--credit" src="img/cards/credit-card.png" alt="" width="607" height="952">
+    </div>
+
+    <!-- 3. Приложение на телефоне (поддержка прямо в приложении) -->
+    <div class="cashback__visual cashback__visual--app" aria-hidden="true">
+      <img class="cashback__app" src="img/phone.svg" alt="" width="1239" height="884">
+    </div>
+  </div>
+</section>
+
+<!-- Сравнение карт -->
+<section class="compare" id="compare-sable">
+  <!-- Настоящий заголовок для скринридера и поисковиков. Визуально его
+       заменяет бегущая строка ниже, которая скрыта от скринридера -->
+  <h2 class="visually-hidden">Compare Sable</h2>
+  <div class="compare__marquee" aria-hidden="true" data-reveal="fade">
+    <div class="compare__track">
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+      <span class="compare__word">Compare Sable</span>
+      <span class="compare__dot"></span>
+    </div>
+  </div>
+
+  <!-- Это настоящая таблица: строки — возможности, колонки — карты.
+       <th scope="row"> / <th scope="col"> говорят скринридеру, какая
+       ячейка заголовок строки, а какая — колонки -->
+  <table class="compare__table">
+    <thead>
+      <tr data-reveal>
+        <td></td>
+        <th scope="col">
+          <img class="compare__image" src="img/compare/credit-debit.png" alt="" width="266" height="124">
+          <span class="compare__name">Sable Secured Credit &amp; Debit Card</span>
+        </th>
+        <th scope="col">
+          <img class="compare__image" src="img/compare/debit.png" alt="" width="197" height="124">
+          <span class="compare__name">Sable Debit<br>Card</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody data-reveal-stagger>
+      <tr data-reveal>
+        <th scope="row">No monthly fees or minimum balance</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+      </tr>
+      <tr data-reveal>
+        <th scope="row">Deposits FDIC insured up to $250,000</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+      </tr>
+      <tr data-reveal>
+        <th scope="row">Rewards, cash back &amp; card perks</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+      </tr>
+      <tr data-reveal>
+        <th scope="row">Send checks &amp; transfer money for free</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+      </tr>
+      <tr data-reveal>
+        <th scope="row">Build credit history from Day 1</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/lock.svg" alt="Not included" width="19" height="19"></td>
+      </tr>
+      <tr data-reveal>
+        <th scope="row">No credit check required for sign up</th>
+        <td><img src="img/compare/check.svg" alt="Included" width="19" height="19"></td>
+        <td><img src="img/compare/lock.svg" alt="Not included" width="19" height="19"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="compare__price-row" data-reveal>
+        <th scope="row">Cost per year</th>
+        <td><span class="compare__price">$0</span> <span class="compare__period">/year</span></td>
+        <td><span class="compare__price">$0</span> <span class="compare__period">/year</span></td>
+      </tr>
+      <tr class="compare__actions-row" data-reveal>
+        <td></td>
+        <td><a class="button" href="/">Get Credit &amp; Debit</a></td>
+        <td><a class="button" href="/">Get Debit</a></td>
+      </tr>
+    </tfoot>
+  </table>
+</section>
+
+<!-- Отзывы. Первая и последняя карточки — копии (aria-hidden), они видны
+     краешком по бокам экрана, как у слайдера в макете -->
+<section class="reviews" aria-labelledby="reviews-title">
+  <div class="reviews__container">
+    <!-- Заголовок секции в том же стиле, что у features:
+         бирюзовая подпись капсом + заголовок из жирной и обычной строки -->
+    <header class="reviews__head" data-reveal>
+      <p class="reviews__eyebrow">Loved by our customers</p>
+      <h2 class="reviews__title" id="reviews-title">
+        <strong>Real people. Real reviews.</strong>
+        Hear why they switched to Sable.
+      </h2>
+    </header>
+    <ul class="reviews__list" data-reveal-stagger>
+      <li class="review" aria-hidden="true" data-reveal>
+        <figure class="review__inner">
+          <img class="review__icon" src="img/icons/quote.svg" alt="" width="39" height="31">
+          <blockquote class="review__text">
+            <p>The best bank for immigrants in the US. Thank you Sable! I have nothing but good things to say about you!</p>
+          </blockquote>
+          <figcaption class="review__author">E Berhe</figcaption>
+        </figure>
+      </li>
+      <li class="review" data-reveal>
+        <figure class="review__inner">
+          <img class="review__icon" src="img/icons/quote.svg" alt="" width="39" height="31">
+          <blockquote class="review__text">
+            <p>Fantastic customer service. I shifted from a traditional bank to Sable [and] Sable’s customer service helped me answer all the questions that I needed to switch.</p>
+          </blockquote>
+          <figcaption class="review__author">K Oiwake</figcaption>
+        </figure>
+      </li>
+      <li class="review" data-reveal>
+        <figure class="review__inner">
+          <img class="review__icon" src="img/icons/quote.svg" alt="" width="39" height="31">
+          <blockquote class="review__text">
+            <p>The best bank for immigrants in the US. Thank you Sable! I have nothing but good things to say about you!</p>
+          </blockquote>
+          <figcaption class="review__author">E Berhe</figcaption>
+        </figure>
+      </li>
+      <li class="review" aria-hidden="true" data-reveal>
+        <figure class="review__inner">
+          <img class="review__icon" src="img/icons/quote.svg" alt="" width="39" height="31">
+          <blockquote class="review__text">
+            <p>Fantastic customer service. I shifted from a traditional bank to Sable [and] Sable’s customer service helped me answer all the questions that I needed to switch.</p>
+          </blockquote>
+          <figcaption class="review__author">K Oiwake</figcaption>
+        </figure>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Баннер с фото и кнопками магазинов приложений -->
+<section class="join">
+  <div class="join__card" data-reveal="zoom">
+    <!-- alt="" — фото декоративное, смысл передаёт текст рядом -->
+    <img class="join__bg" src="img/join-bg.jpg" alt="" width="1238" height="412">
+    <div class="join__content">
+      <h2 class="join__title">
+        <span class="join__word join__word--join">Join</span>
+        <span class="join__word join__word--over">over</span>
+        <span class="join__word join__word--number">400,000</span>
+        <span class="join__word join__word--accounts">accounts</span>
+      </h2>
+      <p class="join__text">Download Sable: effortless, borderless banking for a more connected world.</p>
+    </div>
+    <div class="join__stores">
+      <a class="join__store" href="/"><img src="img/google-play.svg" alt="Get it on Google Play" width="185" height="61"></a>
+      <a class="join__store" href="/"><img src="img/app-store.svg" alt="Download on the App Store" width="185" height="61"></a>
+    </div>
+  </div>
+</section>
+
+<!-- Подвал -->
+<footer class="footer">
+  <div class="footer__top" data-reveal>
+    <nav class="footer__nav" aria-label="Footer">
+      <ul class="footer__menu">
+        <li>
+          <a class="footer__heading" href="/">Sable Credit</a>
+          <ul class="footer__sublist">
+            <li><a class="footer__link" href="/">Sable ONE Credit</a></li>
+            <li><a class="footer__link" href="/">Credit Score <span class="footer__accent">Coming Soon</span></a></li>
+          </ul>
+        </li>
+        <li><a class="footer__heading" href="/">Sable Debit</a></li>
+        <li><a class="footer__heading" href="/">App</a></li>
+        <li>
+          <a class="footer__heading" href="/">Learn</a>
+          <ul class="footer__sublist">
+            <li><a class="footer__link" href="/">FAQs</a></li>
+            <li><a class="footer__link" href="/">About Sable</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="footer__contact">
+      <h2 class="footer__heading">Contact</h2>
+      <ul class="footer__sublist">
+        <li><a class="footer__link" href="mailto:help@sablecard.com">Email: help@sablecard.com</a></li>
+        <li class="footer__link">Location: New York, NY</li>
+      </ul>
+    </div>
+
+    <a class="footer__logo" href="/">
+      <img src="img/logo-footer.svg" alt="Sable" width="247" height="60">
+    </a>
+
+    <ul class="footer__social">
+      <!-- У ссылок-иконок нет текста, поэтому название соцсети задано
+           в aria-label, а у самой иконки пустой alt -->
+      <li><a class="footer__social-link" href="/" aria-label="Instagram"><img src="img/social/instagram.svg" alt="" width="31" height="29"></a></li>
+      <li><a class="footer__social-link" href="/" aria-label="Twitter"><img src="img/social/twitter.svg" alt="" width="31" height="29"></a></li>
+      <li><a class="footer__social-link" href="/" aria-label="Facebook"><img src="img/social/facebook.svg" alt="" width="31" height="29"></a></li>
+      <li><a class="footer__social-link" href="/" aria-label="YouTube"><img src="img/social/youtube.svg" alt="" width="31" height="29"></a></li>
+      <li><a class="footer__social-link" href="/" aria-label="TikTok"><img src="img/social/tiktok.svg" alt="" width="31" height="31"></a></li>
+    </ul>
+
+    <p class="footer__copyright">© Sable Money Inc, all rights reserved.</p>
+  </div>
+
+  <div class="footer__legal">
+    <p class="footer__legal-links">
+      <a href="/">Privacy policy</a> | <a href="/">Terms and conditions</a>
+    </p>
+    <p>
+      *Banking services provided by Coastal Community Bank, Member FDIC, pursuant to license by Mastercard International Inc.<br>
+      Sable account is FDIC-insured up to $250,000 per depositor through Coastal Community Bank, Member FDIC.<br>
+      **If you are not a U.S. citizen, you can apply with your passport and U.S. Visa. Please note: you must submit an SSN once you receive one. If you are a U.S. citizen, SSN is required to open a bank account.<br>
+      *** Double cashback bonus (through 12/2022)
+    </p>
+    <ol class="footer__notes">
+      <li>Please see www.sablecard.com/terms-and-conditions#creditrnb for terms and conditions. Some exclusions apply.</li>
+      <li>Please see www.sablecard.com/terms-and-conditions for terms and conditions.</li>
+      <li>This benefit is provided by MasterCard. Benefits are subject to terms, conditions and limitations, including limitations on the amount of coverage. Please see the terms and conditions.</li>
+      <li>Sable estimated annual value</li>
+      <li>Sable product comparisons</li>
+    </ol>
+    <p>† Sable Remittance Best Rate Guarantee Terms</p>
+  </div>
+</footer>
+
+<!-- Скрипт подключён в конце body: к этому моменту вся разметка уже
+     загружена, и JS может найти шапку и бургер -->
+<script src="js/app.js"></script>
+
+</body>
+
+
+</html>

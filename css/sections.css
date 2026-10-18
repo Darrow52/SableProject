@@ -1,0 +1,848 @@
+/* ==========================================================================
+   global elements
+   ========================================================================== */
+
+.button {
+  align-items: center;
+  padding: 15.5px 24px 14.75px 23px;
+  border-radius: var(--border-radius);
+  background-color: var(--color-green);
+  color: var(--color-dark);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 1.35px;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.button:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+}
+
+/*
+  moving bar
+*/
+@keyframes marquee-half {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-third {
+  to {
+    transform: translateX(calc(-100% / 3));
+  }
+}
+
+/* ==========================================================================
+ FDIC
+   ========================================================================== */
+
+
+.fdic {
+  position: absolute;
+  left: 50px;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  column-gap: 15.4px;
+  width: 406px;
+  font-size: 9.655px;
+  font-weight: 500;
+  line-height: 11.6px;
+  letter-spacing: 0.19px;
+  color: #a0a1a8;
+}
+
+
+.fdic__logo {
+  flex-shrink: 0;
+}
+
+
+
+.press {
+  overflow: hidden;
+  padding-block: 92.7px;
+  background-color: var(--color-dark-gray);
+}
+
+
+.press__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-third 40s linear infinite;
+}
+
+.press__list {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+
+.press__item {
+  flex-shrink: 0;
+  margin-right: 270px;
+}
+
+.press__item img {
+  max-width: none;
+  height: 46px;
+  width: auto;
+}
+
+/* ==========================================================================
+   credit car
+   ========================================================================== */
+
+
+.credit {
+  position: relative;
+  height: 707.5px;
+  overflow: hidden;
+}
+
+
+.credit__card {
+  position: absolute;
+  top: 454px;
+  left: calc(50% + 401px);
+  width: 433px;
+  max-width: none;
+  height: 533px;
+  transform: translate(-50%, -50%) rotate(20deg);
+}
+
+/* ==========================================================================
+   debit card
+   ========================================================================== */
+
+.debit {
+  position: relative;
+  height: 708px;
+  overflow: hidden;
+  background-color: var(--color-white);
+}
+
+.debit__container {
+  width: calc(100% - 40px);
+  max-width: 1238px;
+  margin-inline: auto;
+  padding-top: 222px;
+}
+
+.debit__card {
+  position: absolute;
+  top: 407px;
+  left: calc(50% - 270px);
+  width: 433px;
+  max-width: none;
+  height: 533px;
+  transform: translate(-50%, -50%) rotate(-20deg);
+}
+
+
+.debit__title {
+  position: relative;
+  max-width: 475px;
+  margin-left: calc(50% + 77px);
+  font-size: 38.6px;
+  font-weight: 400;
+  line-height: 46.35px;
+  color: var(--color-dark);
+}
+
+.debit__accent {
+  color: #1fc6bb;
+}
+
+/* ==========================================================================
+   brands
+   ========================================================================== */
+
+
+.cashback {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 810px;
+  overflow: hidden;
+  background-color: var(--color-dark-gray);
+}
+
+.cashback__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 38.6px;
+  margin: 0;
+  padding: 98px 20px 0 100.8px;
+}
+
+/* Время, за которое активный пункт «проигрывается» до переключения
+   на следующий. Это же время — длительность полоски прогресса */
+.cashback {
+  --cashback-duration: 6s;
+}
+
+.cashback__item {
+  position: relative;
+  max-width: 518.4px;
+  padding: 47.3px 24px 0 0;
+  border-top: 1px solid rgba(196, 196, 196, 0.12);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.cashback__item:hover {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cashback__item--active,
+.cashback__item--active:hover {
+  border-top-color: rgba(196, 196, 196, 0.39);
+  color: rgba(255, 255, 255, 0.98);
+}
+
+/* Полоска прогресса над активным пунктом: растягивается слева направо
+   за --cashback-duration. Когда анимация заканчивается, JS ловит событие
+   animationend и включает следующий пункт */
+.cashback__item--active::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-green);
+  transform-origin: left;
+  animation: cashback-progress var(--cashback-duration) linear forwards;
+  /* По умолчанию полоска стоит на месте. Едет она, только когда
+     секция на экране — класс cashback--running ставит JS */
+  animation-play-state: paused;
+}
+
+.cashback--running .cashback__item--active::before {
+  animation-play-state: running;
+}
+
+/* Пауза, пока пользователь читает (курсор над секцией)
+   или ходит по пунктам с клавиатуры */
+.cashback--running:hover .cashback__item--active::before,
+.cashback:has(.cashback__trigger:focus-visible) .cashback__item--active::before {
+  animation-play-state: paused;
+}
+
+@keyframes cashback-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Размер заголовка одинаковый у всех пунктов: если бы активный был
+   крупнее, текст «прыгал» бы при каждом переключении */
+/* Плавная смена цвета при переключении пунктов. transition стоит на
+   заголовке и тексте, а не на самом пункте: у пункта transition уже занят
+   анимацией появления (data-reveal), и одно правило перебило бы другое.
+   Цвет они наследуют от пункта, а переход срабатывает и при наследовании */
+.cashback__title,
+.cashback__text {
+  transition: color 0.4s ease;
+}
+
+.cashback__title {
+  margin-bottom: 12px;
+  font-size: 28.9px;
+  font-weight: 500;
+  line-height: 37.1px;
+}
+
+/* Сбрасываем стандартный вид кнопки: она должна выглядеть как заголовок */
+.cashback__trigger {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+/* Растягиваем кликабельную область кнопки на весь пункт:
+   псевдоэлемент кнопки занимает всю карточку (у .cashback__item
+   position: relative), поэтому кликнуть можно и по тексту под заголовком */
+.cashback__trigger::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cashback__trigger:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 4px;
+}
+
+.cashback__text {
+  font-size: 17.4px;
+  line-height: 25px;
+  letter-spacing: 0.35px;
+}
+
+.cashback__text sup {
+  font-size: 13px;
+  line-height: 0;
+}
+
+/* Правая половина: три картинки лежат друг на друге */
+.cashback__visuals {
+  position: relative;
+  overflow: hidden;
+  background-color: #dcdce2;
+}
+
+/* Неактивная картинка прозрачная и скрыта. visibility меняется с задержкой
+   0.6s — сначала картинка плавно исчезает, и только потом прячется совсем */
+.cashback__visual {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0s linear 0.6s;
+}
+
+.cashback__visual--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease, visibility 0s;
+}
+
+/* --- Картинка 1: плитки брендов --- */
+
+.brands__column {
+  position: absolute;
+}
+
+.brands__column--left {
+  top: -68.7px;
+  left: 117px;
+}
+
+.brands__column--right {
+  top: -12.5px;
+  left: 387px;
+}
+
+/* Дорожка с плитками бесконечно едет по вертикали. Плитки в ней
+   повторены дважды, поэтому сдвиг на -50% незаметно возвращает её
+   в начало (как у бегущей строки, только вертикально) */
+.brands__track {
+  margin: 0;
+  animation: brands-scroll 30s linear infinite;
+}
+
+/* Правая колонка едет в обратную сторону — вниз */
+.brands__column--right .brands__track {
+  animation-direction: reverse;
+}
+
+@keyframes brands-scroll {
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+/* Отступ снизу у каждой плитки (а не gap у колонки), чтобы обе половины
+   дорожки были одинаковой высоты и сдвиг на -50% совпадал точно */
+.brands__tile {
+  display: grid;
+  place-items: center;
+  width: 216px;
+  height: 216px;
+  margin-bottom: 54px;
+  border-radius: 36.7px;
+  background-color: rgba(255, 255, 255, 0.93);
+}
+
+/* --- Картинка 2: две карты веером --- */
+
+/* Карты стоят от центра блока. Их поворот задан свойством rotate:
+   у активной картинки он плавно увеличивается, и карты «раскрываются» */
+.cashback__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(36%, 240px);
+  height: auto;
+  transition: rotate 0.8s cubic-bezier(0.22, 0.61, 0.36, 1), translate 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cashback__card--debit {
+  translate: -60% -50%;
+  rotate: -4deg;
+}
+
+.cashback__card--credit {
+  translate: -40% -50%;
+  rotate: 4deg;
+}
+
+.cashback__visual--active .cashback__card--debit {
+  translate: -85% -50%;
+  rotate: -14deg;
+}
+
+.cashback__visual--active .cashback__card--credit {
+  translate: -15% -48%;
+  rotate: 12deg;
+}
+
+/* --- Картинка 3: приложение на телефоне --- */
+
+/* Размер картинки считаем от высоты блока: телефон занимает почти всю её
+   высоту, поэтому так он целиком помещается сверху на любом экране.
+   Низ телефона обрезается краем блока, как в секции features.
+   При появлении картинка чуть приподнимается */
+.cashback__app {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: 100%;
+  translate: -50% 8%;
+  /* та же светлая линия у верхнего края картинки, что и в features */
+  clip-path: inset(16px 0 0 0);
+  transition: translate 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cashback__visual--active .cashback__app {
+  translate: -50% 2%;
+}
+
+/* Без анимаций (настройка «уменьшить движение»): полоска прогресса не нужна,
+   а JS в этом случае не переключает пункты сам */
+@media (prefers-reduced-motion: reduce) {
+  .cashback__item--active::before {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   card comparison
+   ========================================================================== */
+
+.compare {
+  overflow: hidden;
+  padding-block: 154.5px;
+  color: var(--color-white);
+}
+
+.compare__marquee {
+  overflow: hidden;
+}
+
+.compare__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee-half 30s linear infinite;
+}
+
+.compare__word,
+.compare__dot {
+  flex-shrink: 0;
+  margin-right: 64px;
+}
+
+.compare__word {
+  font-size: 84.5px;
+  font-weight: 500;
+  line-height: 95.2px;
+  white-space: nowrap;
+}
+
+.compare__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+}
+
+
+.compare__table {
+  width: calc(100% - 40px);
+  max-width: 1238px;
+  margin: 92.7px auto 0;
+  table-layout: fixed;
+  font-size: 14.45px;
+  line-height: 23.2px;
+}
+
+
+.compare__table :is(th, td) {
+  padding: 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+
+.compare__table :is(th, td):nth-child(-n + 2) {
+  width: 423px;
+}
+
+.compare__table thead :is(th, td) {
+  padding-bottom: 30px;
+  vertical-align: top;
+}
+
+.compare__image {
+  height: 123.6px;
+  width: auto;
+}
+
+.compare__name {
+  display: block;
+  max-width: 239px;
+  margin-top: 22px;
+  font-size: 24.7px;
+  line-height: 29.7px;
+  color: #10aca2;
+}
+
+.compare__table tbody tr {
+  height: 62.8px;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.compare__table tbody tr:first-child {
+  border-top: 1px solid #2f2f2f;
+}
+
+.compare__price-row {
+  height: 72.9px;
+}
+
+.compare__price {
+  font-size: 41.35px;
+  line-height: 55.6px;
+  letter-spacing: 0.93px;
+}
+
+.compare__period {
+  font-size: 8.5px;
+  letter-spacing: 0.93px;
+  color: #a0a1a8;
+}
+
+.compare__actions-row td {
+  padding-top: 31px;
+}
+
+/* ==========================================================================
+   reviews
+   ========================================================================== */
+
+.reviews {
+  overflow: hidden;
+  padding-top: 130px;
+  color: var(--color-white);
+}
+
+.reviews__container {
+  width: calc(100% - 40px);
+  max-width: 1238px;
+  margin-inline: auto;
+}
+
+
+/* Заголовок секции повторяет стиль заголовка features
+   (.features-eyebrow и .features__title в second.css),
+   чтобы секции выглядели как части одного сайта */
+.reviews__head {
+  margin-bottom: 64px;
+  text-align: center;
+}
+
+.reviews__eyebrow {
+  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--color-green);
+}
+
+.reviews__title {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 0.8px;
+  /* Браузер делит текст на строки примерно поровну: на узком экране
+     получится «Real people. / Real reviews.», а не «…Real / reviews.» */
+  text-wrap: balance;
+}
+
+/* Жирная первая строка, остальной текст переносится на новую */
+.reviews__title strong {
+  display: block;
+  font-weight: 700;
+}
+
+
+.reviews__list {
+  display: flex;
+  column-gap: 48px;
+  margin: 0 0 0 -643px;
+}
+
+.review {
+  flex-shrink: 0;
+  width: 595px;
+  height: 387px;
+  border-radius: 19.3px;
+  background-color: var(--color-dark-gray);
+}
+
+
+.review__inner {
+  display: grid;
+  grid-template-columns: 38.6px 371px;
+  grid-template-rows: 1fr auto;
+  column-gap: 61.8px;
+  height: 100%;
+  margin: 0;
+  padding: 53px 62px 54px;
+}
+
+.review__icon {
+  margin-top: 8.7px;
+}
+
+.review__text {
+  margin: 0;
+  font-size: 27px;
+  line-height: 32.44px;
+}
+
+.review__author {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  column-gap: 19.3px;
+  font-size: 16.38px;
+  font-weight: 700;
+  line-height: 20.86px;
+  letter-spacing: 0.35px;
+}
+
+
+.review__author::before {
+  content: "";
+  width: 61.8px;
+  height: 3.86px;
+  background-color: var(--color-white);
+}
+
+/* ==========================================================================
+   banner
+   ========================================================================== */
+
+.join {
+  padding-top: 154.5px;
+}
+
+.join__card {
+  position: relative;
+  width: calc(100% - 40px);
+  max-width: 1238px;
+  height: 412px;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 19.3px;
+  color: var(--color-white);
+}
+
+
+.join__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.join__content {
+  position: absolute;
+  left: 61.8px;
+  bottom: 60.8px;
+}
+
+
+.join__title {
+  display: flex;
+  align-items: baseline;
+  column-gap: 9px;
+  margin-bottom: 15.4px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.join__word--join {
+  font-size: 31.6px;
+}
+
+.join__word--over {
+  font-size: 35.6px;
+}
+
+.join__word--number {
+  font-size: 55.8px;
+}
+
+.join__word--accounts {
+  font-size: 36.6px;
+}
+
+.join__text {
+  max-width: 475px;
+  font-size: 17.4px;
+  line-height: 25px;
+  letter-spacing: 0.35px;
+}
+
+.join__stores {
+  position: absolute;
+  right: 61.8px;
+  bottom: 61.8px;
+  display: flex;
+  column-gap: 23.2px;
+}
+
+/* ==========================================================================
+   footer
+   ========================================================================== */
+
+.footer {
+  width: calc(100% - 40px);
+  max-width: 1238px;
+  margin-inline: auto;
+  padding-block: 108px 100px;
+  color: var(--color-white);
+}
+
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 403.8px 1fr auto;
+  grid-template-rows: 1fr auto;
+  min-height: 339.7px;
+}
+
+
+.footer__nav {
+  grid-row: 1 / 3;
+}
+
+.footer__menu {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14.5px;
+  margin: 0;
+}
+
+.footer__heading {
+  margin: 0;
+  font-size: 28.9px;
+  font-weight: 500;
+  line-height: 37.1px;
+  letter-spacing: 0.39px;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+.footer__sublist {
+  display: flex;
+  flex-direction: column;
+  row-gap: 7.6px;
+  margin: 0;
+  padding-block: 14.4px 8.6px;
+}
+
+.footer__link {
+  font-size: 16.38px;
+  line-height: 20.86px;
+  color: var(--color-white);
+  text-decoration: none;
+}
+
+
+a.footer__heading:hover,
+a.footer__link:hover {
+  color: var(--color-green);
+}
+
+.footer__accent {
+  margin-left: 0.3em;
+  color: #1fc6bb;
+}
+
+.footer__logo {
+  justify-self: end;
+  align-self: start;
+}
+
+.footer__social {
+  grid-column: 2;
+  align-self: end;
+  display: flex;
+  column-gap: 38.6px;
+  margin: 0;
+}
+
+.footer__social-link:hover {
+  opacity: 0.7;
+}
+
+.footer__copyright {
+  align-self: end;
+  justify-self: end;
+  font-size: 12.5px;
+  line-height: 23.1px;
+}
+
+.footer__legal {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 100.4px;
+  padding-top: 39px;
+  border-top: 1px solid #2f2f2f;
+  font-size: 11.55px;
+  line-height: 15.06px;
+  color: #73757b;
+}
+
+.footer__legal-links {
+  margin-bottom: 22px;
+  font-size: 10.55px;
+}
+
+.footer__legal a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer__legal a:hover {
+  color: var(--color-white);
+}
+
+.footer__notes {
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}

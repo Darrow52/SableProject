@@ -1,0 +1,960 @@
+/* ==========================================================================
+   Адаптив
+   Базовые стили написаны под десктоп (макет 1440px), поэтому здесь
+   max-width медиазапросы:
+   - до 1199px — планшет: раскладки «по бокам от картинки» перестраиваются
+   - до 767px  — мобильный: всё в одну колонку, меню в бургере
+   ========================================================================== */
+
+/* Бургер нужен только на мобильном, на остальных ширинах прячем его */
+.header-burger {
+  display: none;
+}
+
+/* ==========================================================================
+   Планшет
+   ========================================================================== */
+
+@media (max-width: 1199px) {
+
+  /* Шапка и первый экран */
+
+  .header {
+    padding-inline: 32px;
+  }
+
+  /* На десктопе логотип и меню опущены вниз высотой 195px (так в макете).
+     На планшете уменьшаем, чтобы шапка не занимала полэкрана */
+  .header-logo,
+  .header-menu-list {
+    height: 160px;
+  }
+
+  .header-menu-list {
+    column-gap: 28px;
+  }
+
+  .title-text1 {
+    font-size: 48px;
+    line-height: 62px;
+  }
+
+  .title-text2 {
+    font-size: 52px;
+    line-height: 66px;
+  }
+
+  .fdic {
+    left: 32px;
+    bottom: 40px;
+  }
+
+  /* Features: заголовок, сетка 2×2, телефон снизу */
+
+  /* На десктопе телефон стоит поверх текста (position: absolute).
+     На планшете места по бокам нет, поэтому превращаем секцию во flex-колонку
+     и ставим элементы друг под другом. order ниже меняет их порядок:
+     заголовок → карточки → телефон, не трогая HTML */
+  .features {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    padding: 96px 0 0;
+  }
+
+  .features-head {
+    padding-inline: 32px;
+  }
+
+  .features__title {
+    font-size: 34px;
+  }
+
+  .features__list {
+    order: 2;
+    /* minmax(0, 1fr) — две равные колонки, которые могут сжиматься.
+       Просто 1fr не даёт колонке стать уже самого длинного слова */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
+    /* На десктопе карточки заполнялись по колонкам (1,2 слева, 3,4 справа).
+       Здесь возвращаем обычный порядок: по строкам */
+    grid-auto-flow: row;
+    column-gap: 48px;
+    row-gap: 56px;
+    width: calc(100% - 64px);
+    max-width: 720px;
+    margin-top: 64px;
+  }
+
+  /* Отменяем десктопное выравнивание правой колонки по правому краю:
+     в сетке 2×2 все карточки читаются слева направо */
+  .feature,
+  .feature:nth-child(n + 3) {
+    justify-self: stretch;
+    max-width: none;
+    text-align: left;
+  }
+
+  .feature:nth-child(n + 3) .feature__icon,
+  .feature:nth-child(n + 3) .feature__title {
+    margin-left: 0;
+  }
+
+  .feature:nth-child(n + 3) .feature__icon {
+    object-position: left top;
+  }
+
+  .feature__title {
+    max-width: none;
+  }
+
+  /* Телефон возвращаем в обычный поток (relative вместо absolute) и
+     ставим последним. width больше экрана + flex-shrink: 0 — картинка
+     не сжимается и выходит за края поровну с двух сторон (align-items: center
+     у родителя), а лишнее обрезает overflow: hidden секции */
+  .features__phone {
+    order: 3;
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: auto;
+    flex-shrink: 0;
+    width: 1000px;
+    height: 560px;
+    margin-top: 48px;
+    /* Показываем только верхнюю часть картинки с телефоном:
+       cover заполняет блок, а center top прижимает картинку к верху */
+    object-fit: cover;
+    object-position: center top;
+    transform: none;
+  }
+
+  /* Пресса */
+
+  .press {
+    padding-block: 64px;
+  }
+
+  .press__item {
+    margin-right: 140px;
+  }
+
+  .press__item img {
+    height: 34px;
+  }
+
+  /* Кредитная карта */
+
+  .credit {
+    height: 560px;
+  }
+
+  /* Карты позиционируются от центра экрана (50% ± сдвиг),
+     поэтому остаются на месте при любой ширине. Размер уменьшен на 20% */
+  .credit__card {
+    top: 350px;
+    left: calc(50% + 150px);
+    width: 346px;
+    height: 426px;
+  }
+
+  /* Дебетовая карта */
+
+  .debit {
+    height: 600px;
+  }
+
+  .debit__container {
+    width: calc(100% - 64px);
+    padding-top: 220px;
+  }
+
+  .debit__card {
+    top: 340px;
+    left: calc(50% - 190px);
+    width: 346px;
+    height: 426px;
+  }
+
+  .debit__title {
+    max-width: 340px;
+    margin-left: calc(50% + 20px);
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  /* Кэшбэк: пункты сверху, бренды снизу */
+
+  /* Две половины (текст | бренды) превращаем в одну колонку:
+     текст сверху, плитки брендов снизу. height: auto — высота по содержимому */
+  .cashback {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .cashback__list {
+    align-items: center;
+    padding: 80px 32px;
+  }
+
+  .cashback__item {
+    width: 100%;
+    max-width: 640px;
+    padding-right: 0;
+  }
+
+  /* Блок с картинками под текстом получает свою высоту
+     (на десктопе он растягивался на высоту секции) */
+  .cashback__visuals {
+    height: 460px;
+  }
+
+  .brands__column--left {
+    top: -60px;
+    left: calc(50% - 243px);
+  }
+
+  .brands__column--right {
+    top: -8px;
+    left: calc(50% + 27px);
+  }
+
+  /* Сравнение */
+
+  .compare {
+    padding-block: 96px;
+  }
+
+  .compare__word {
+    font-size: 60px;
+    line-height: 70px;
+  }
+
+  .compare__word,
+  .compare__dot {
+    margin-right: 48px;
+  }
+
+  .compare__dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .compare__table {
+    width: calc(100% - 64px);
+    margin-top: 64px;
+  }
+
+  /* Сбрасываем десктопную фиксированную ширину колонок (423px)
+     и задаём первой колонке долю в процентах — так таблица тянется */
+  .compare__table :is(th, td):nth-child(-n + 2) {
+    width: auto;
+  }
+
+  .compare__table :is(th, td):first-child {
+    width: 38%;
+    padding-right: 16px;
+  }
+
+  /* Одинаковая высота у обеих картинок карт, иначе названия под ними
+     оказываются на разной высоте. contain — картинка не искажается */
+  .compare__image {
+    width: auto;
+    max-width: 100%;
+    height: 96px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .compare__name {
+    max-width: 220px;
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  /* Отзывы: обычная прокрутка вбок без «обрезанных» копий */
+
+  .reviews {
+    padding-top: 96px;
+  }
+
+  .reviews__container {
+    width: calc(100% - 64px);
+  }
+
+  .reviews__head {
+    margin-bottom: 48px;
+  }
+
+  .reviews__title {
+    font-size: 34px;
+  }
+
+  /* Отзывы листаются пальцем вбок:
+     overflow-x: auto — горизонтальная прокрутка,
+     scroll-snap-type — после прокрутки карточка «прилипает» к краю,
+     scrollbar-width: none — прячем полосу прокрутки (следующая карточка
+     и так выглядывает сбоку, это подсказка, что можно листать) */
+  .reviews__list {
+    margin-left: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  /* Копии отзывов нужны только на десктопе для эффекта «слайдер обрезан
+     по краям экрана». При прокрутке пальцем они были бы повтором — убираем */
+  .review[aria-hidden="true"] {
+    display: none;
+  }
+
+  .review {
+    width: 520px;
+    height: auto;
+    min-height: 340px;
+    scroll-snap-align: start;
+  }
+
+  .review__inner {
+    column-gap: 40px;
+    grid-template-columns: 38.6px 1fr;
+    padding: 48px;
+  }
+
+  .review__text {
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  /* Баннер: текст и кнопки магазинов друг под другом */
+
+  .join {
+    padding-top: 96px;
+  }
+
+  /* На десктопе текст и кнопки магазинов стоят абсолютно в разных углах.
+     На узком экране они бы наехали друг на друга, поэтому ставим их
+     в колонку и прижимаем к низу карточки (justify-content: flex-end) */
+  .join__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    row-gap: 32px;
+    width: calc(100% - 64px);
+    height: auto;
+    min-height: 440px;
+    padding: 48px;
+  }
+
+  /* Затемнение снизу: на светлой фотографии белый текст плохо читается.
+     ::after — псевдоэлемент, слой поверх фото без лишнего HTML */
+  .join__card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 70%);
+  }
+
+  /* Возвращаем блоки в поток (relative вместо absolute) и поднимаем
+     z-index выше затемнения, иначе градиент лёг бы поверх текста */
+  .join__content,
+  .join__stores {
+    position: relative;
+    z-index: 1;
+    inset: auto;
+  }
+
+  .join__title {
+    flex-wrap: wrap;
+  }
+
+  .join__stores {
+    flex-wrap: wrap;
+    row-gap: 16px;
+  }
+
+  /* Подвал: логотип сверху, навигация и контакты в две колонки */
+
+  .footer {
+    width: calc(100% - 64px);
+    padding-block: 96px 72px;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    /* grid-template-areas — «карта» сетки словами: каждая строка в кавычках
+       это ряд, слова — названия областей. Ниже элементам назначаем
+       grid-area с этими названиями, и они встают на свои места */
+    grid-template-areas:
+      "logo logo"
+      "nav contact"
+      "social copyright";
+    row-gap: 56px;
+    column-gap: 32px;
+    min-height: 0;
+  }
+
+  .footer__logo {
+    grid-area: logo;
+    justify-self: start;
+  }
+
+  .footer__nav {
+    grid-area: nav;
+    grid-row: auto;
+  }
+
+  .footer__contact {
+    grid-area: contact;
+  }
+
+  .footer__social {
+    grid-area: social;
+    grid-column: auto;
+  }
+
+  .footer__copyright {
+    grid-area: copyright;
+  }
+
+  .footer__legal {
+    margin-top: 64px;
+  }
+}
+
+/* ==========================================================================
+   Мобильный
+   ========================================================================== */
+
+@media (max-width: 767px) {
+
+  /* Шапка: логотип, кнопка и бургер; меню выпадает под шапкой */
+  .header {
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  .header-logo,
+  .header-menu-list {
+    height: auto;
+  }
+
+  .header-logo-image {
+    width: 96px;
+  }
+
+  /* margin-left: auto «съедает» всё свободное место слева,
+     и кнопка с бургером прижимаются к правому краю */
+  .header-action {
+    margin-left: auto;
+  }
+
+  .header-book-button {
+    width: auto;
+    height: 40px;
+    padding-inline: 18px;
+    font-size: 14px;
+  }
+
+  .header-burger {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--color-white);
+  }
+
+  /* Иконка бургера — это один <span> и два его псевдоэлемента
+     (::before и ::after): три полоски по 2px друг под другом */
+  .header-burger__line,
+  .header-burger__line::before,
+  .header-burger__line::after {
+    position: absolute;
+    left: 9px;
+    width: 22px;
+    height: 2px;
+    /* currentColor — цвет берётся из color кнопки (белый) */
+    background-color: currentColor;
+    /* Плавная анимация превращения полосок в крестик */
+    transition: transform var(--transition-duration), top var(--transition-duration), opacity var(--transition-duration);
+  }
+
+  .header-burger__line {
+    top: 19px;
+  }
+
+  .header-burger__line::before,
+  .header-burger__line::after {
+    content: "";
+    left: 0;
+  }
+
+  .header-burger__line::before {
+    top: -7px;
+  }
+
+  .header-burger__line::after {
+    top: 7px;
+  }
+
+  /* Класс header--open добавляет JS (js/app.js) при клике на бургер.
+     Средняя полоска исчезает, а верхняя и нижняя съезжаются в центр
+     и поворачиваются на ±45° — получается крестик */
+  .header--open .header-burger__line {
+    background-color: transparent;
+  }
+
+  .header--open .header-burger__line::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+
+  .header--open .header-burger__line::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /* Меню висит под шапкой поверх страницы:
+     top: 100% — сразу под нижним краем шапки (у шапки position: relative).
+     По умолчанию скрыто, показывается только с классом header--open */
+  .header-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: none;
+    padding: 8px 20px 24px;
+    background-color: rgba(0, 0, 0, 0.95);
+  }
+
+  .header--open .header-menu {
+    display: block;
+  }
+
+  .header-menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0;
+  }
+
+  .header-menu-link {
+    padding-block: 12px;
+    font-size: 18px;
+  }
+
+  /* Первый экран */
+
+  .first-screen {
+    height: 600px;
+  }
+
+  /* Фон с картами уменьшаем пропорционально десктопу (1224px → 760px),
+     сдвиг вверх тоже: 207 × 760 / 1224 ≈ 128 */
+  .hero__background {
+    top: -128px;
+    width: 760px;
+    height: 760px;
+  }
+
+  .content {
+    min-height: 0;
+    margin-top: 72px;
+    padding-inline: 20px;
+  }
+
+  .title-text1,
+  .title-text2 {
+    letter-spacing: 0.5px;
+  }
+
+  .title-text1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .title-text2 {
+    font-size: 34px;
+    line-height: 42px;
+  }
+
+  .explore {
+    width: 140px;
+    height: 64px;
+  }
+
+  .fdic {
+    left: 20px;
+    bottom: 20px;
+    column-gap: 12px;
+    width: calc(100% - 40px);
+  }
+
+  /* Features: одна колонка */
+
+  .features {
+    padding-top: 72px;
+  }
+
+  .features-head {
+    padding-inline: 20px;
+  }
+
+  .features-eyebrow {
+    font-size: 12px;
+  }
+
+  .features__title {
+    font-size: 26px;
+  }
+
+  .features__list {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+    width: calc(100% - 40px);
+    margin-top: 48px;
+  }
+
+  .feature__icon {
+    margin-bottom: 14px;
+  }
+
+  .feature__title {
+    font-size: 18px;
+  }
+
+  .features__phone {
+    width: 600px;
+    height: 360px;
+    margin-top: 40px;
+  }
+
+  /* Пресса */
+
+  .press {
+    padding-block: 48px;
+  }
+
+  .press__item {
+    margin-right: 80px;
+  }
+
+  .press__item img {
+    height: 26px;
+  }
+
+  /* Кредитная карта: по центру */
+
+  .credit {
+    height: 420px;
+  }
+
+  .credit__card {
+    top: 250px;
+    left: 50%;
+    width: 260px;
+    height: 320px;
+  }
+
+  /* Дебетовая карта: заголовок сверху, карта под ним */
+
+  .debit {
+    height: auto;
+  }
+
+  /* В HTML карта идёт раньше заголовка. column-reverse переворачивает
+     порядок: на мобильном сначала читаем заголовок, потом видим карту */
+  .debit__container {
+    display: flex;
+    flex-direction: column-reverse;
+    width: calc(100% - 40px);
+    padding-top: 64px;
+  }
+
+  .debit__title {
+    max-width: 320px;
+    margin-inline: auto;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+  }
+
+  .debit__card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 260px;
+    height: 320px;
+    /* Отрицательный нижний отступ подтягивает край секции вверх,
+       и низ карты обрезается — как на десктопе */
+    margin: 72px auto -24px;
+    transform: rotate(-20deg);
+  }
+
+  /* Кэшбэк */
+
+  .cashback__list {
+    row-gap: 32px;
+    padding: 64px 20px;
+  }
+
+  .cashback__item {
+    padding-top: 32px;
+  }
+
+  .cashback__title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .cashback__text {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .cashback__visuals {
+    height: 360px;
+  }
+
+  .brands__column--left {
+    top: -50px;
+    left: calc(50% - 168px);
+  }
+
+  .brands__column--right {
+    top: -14px;
+    left: calc(50% + 18px);
+  }
+
+  .brands__tile {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 36px;
+    border-radius: 26px;
+  }
+
+  /* Логотипы занимают не больше 60% плитки и сохраняют пропорции,
+     иначе в уменьшенных плитках они бы упирались в края */
+  .brands__tile img {
+    width: auto;
+    height: auto;
+    max-width: 60%;
+    max-height: 60%;
+  }
+
+  /* Сравнение: та же таблица, только компактнее */
+
+  .compare {
+    padding-block: 72px;
+  }
+
+  .compare__word {
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  .compare__word,
+  .compare__dot {
+    margin-right: 32px;
+  }
+
+  .compare__dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .compare__table {
+    width: calc(100% - 32px);
+    margin-top: 48px;
+    font-size: 12.5px;
+    line-height: 17px;
+  }
+
+  .compare__table :is(th, td):first-child {
+    width: 40%;
+    padding-right: 12px;
+  }
+
+  .compare__table tbody :is(th, td) {
+    padding-block: 14px;
+  }
+
+  .compare__table :is(th, td):not(:first-child) {
+    padding-right: 8px;
+  }
+
+  .compare__image {
+    height: 44px;
+  }
+
+  .compare__name {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .compare__price {
+    font-size: 26px;
+    line-height: 36px;
+  }
+
+  .compare__actions-row td {
+    padding-top: 20px;
+    vertical-align: top;
+  }
+
+  /* В узкой колонке таблицы текст кнопки может переноситься
+     на две строки (white-space: normal) */
+  .button {
+    padding: 10px 12px;
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: 0.6px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  /* Отзывы */
+
+  .reviews {
+    padding-top: 72px;
+  }
+
+  .reviews__container {
+    width: calc(100% - 40px);
+  }
+
+  .reviews__head {
+    margin-bottom: 40px;
+  }
+
+  .reviews__eyebrow {
+    font-size: 12px;
+  }
+
+  .reviews__title {
+    font-size: 26px;
+  }
+
+  .reviews__list {
+    column-gap: 16px;
+  }
+
+  /* min() берёт меньшее из двух: 85% ширины экрана, но не больше 420px.
+     Оставшиеся 15% — видимый край следующей карточки */
+  .review {
+    width: min(85vw, 420px);
+    min-height: 0;
+  }
+
+  .review__inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    row-gap: 24px;
+    padding: 32px;
+  }
+
+  .review__icon {
+    margin-top: 0;
+  }
+
+  .review__author {
+    grid-column: 1;
+  }
+
+  .review__text {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  /* Баннер */
+
+  .join {
+    padding-top: 72px;
+  }
+
+  .join__card {
+    width: calc(100% - 40px);
+    min-height: 480px;
+    padding: 28px;
+    row-gap: 24px;
+  }
+
+  .join__title {
+    column-gap: 7px;
+  }
+
+  .join__word--join {
+    font-size: 22px;
+  }
+
+  .join__word--over,
+  .join__word--accounts {
+    font-size: 24px;
+  }
+
+  .join__word--number {
+    font-size: 38px;
+  }
+
+  .join__text {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .join__store img {
+    width: 130px;
+    height: auto;
+  }
+
+  .join__stores {
+    column-gap: 12px;
+  }
+
+  /* Подвал: одна колонка */
+
+  .footer {
+    width: calc(100% - 40px);
+    padding-block: 72px 56px;
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "nav"
+      "contact"
+      "social"
+      "copyright";
+    row-gap: 40px;
+  }
+
+  .footer__logo img {
+    width: 160px;
+    height: auto;
+  }
+
+  .footer__heading {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .footer__social {
+    column-gap: 32px;
+  }
+
+  .footer__copyright {
+    justify-self: start;
+  }
+
+  .footer__legal {
+    margin-top: 48px;
+    padding-top: 32px;
+  }
+}
